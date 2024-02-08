@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options button {
+            margin-right: 10px;
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .options button:hover {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz">
+        <div class="question" id="question1">
+            <h2>Question 1</h2>
+            <p>What is 2 + 2?</p>
+            <div class="options">
+                <button onclick="checkAnswer(1, 4)">4</button>
+                <button onclick="checkAnswer(1, 5)">5</button>
+            </div>
+        </div>
+        <div class="question" id="question2" style="display: none;">
+            <h2>Question 2</h2>
+            <p>What is the capital of France?</p>
+            <div class="options">
+                <button onclick="checkAnswer(2, 'Paris')">Paris</button>
+                <button onclick="checkAnswer(2, 'London')">London</button>
+            </div>
+        </div>
+        <!-- Add more questions here -->
+    </div>
+
+    <div id="result" style="display: none;">
+        <h2>Your Score:</h2>
+        <p id="score"></p>
+    </div>
+
+    <script>
+        var currentQuestion = 1;
+        var score = 0;
+
+        function checkAnswer(questionNumber, selectedAnswer) {
+            var correctAnswer;
+            if (questionNumber === 1) {
+                correctAnswer = 4;
+            } else if (questionNumber === 2) {
+                correctAnswer = 'Paris';
+            }
+            // Add more correct answers for additional questions
+
+            if (selectedAnswer === correctAnswer) {
+                score++;
+            }
+
+            // Hide current question, show next question
+            document.getElementById('question' + questionNumber).style.display = 'none';
+            document.getElementById('question' + (questionNumber + 1)).style.display = 'block';
+
+            // If there are no more questions, display the result
+            if (!document.getElementById('question' + (questionNumber + 1))) {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('score').innerText = score + '/' + (currentQuestion - 1);
+        }
+    </script>
+</body>
+</html>
